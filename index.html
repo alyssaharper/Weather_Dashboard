@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <title>Weather Dashboard</title>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
+      </nav>
+</head>
+<body>
+    <main>
+        <h3 id="searchTitle">Search for a City:</h3>
+<form action="" id="searchBar">
+    
+    <input type="text" placeholder="Search.." name="search"> <br>
+      <button id="searchButton" type="submit">Search</button>
+</form>
+<div class="container">
+    <div id="city"></div>
+    <div id="date"></div>
+    <div id="weatherIcon"></div>
+    <div id="temperature"></div>
+    <div id="wind"></div>
+    <div id="humidity"></div>
+    <div id="uvIndex"></div>
+</div>
+<h4 id="5DayHeader">5-Day Forecast</h4>
+<div id="5DayForecast">
+    <div class="card" id="day1">
+        <div class="card-body">
+        </div>
+      </div>
+      <div class="card" id="day2">
+        <div class="card-body">
+        </div>
+      </div>
+      <div class="card" id="day3">
+        <div class="card-body"></div>
+        </div>
+      </div>
+      <div class="card" id="day4">
+        <div class="card-body">
+        </div>
+      </div>
+      <div class="card" id="day5">
+        <div class="card-body">
+        </div>
+      </div>
+</div>
+    </main>
+    <script src="./script.js"></script>    
+</body>
+</html>
