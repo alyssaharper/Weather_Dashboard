@@ -8,12 +8,15 @@ var weatherIconEl = document.getElementById('weatherIcon');
 var windEl = document.getElementById('wind');
 var humidityEl = document.getElementById('humidity');
 var uvIndexEl = document.getElementById('uvIndex');
+var historyEl = document.getElementById('history');
+var fiveDayForecastEl = document.getElementById('5DayForecast');
+var citiesArr = JSON.parse(localStorage.getItem('city')) || [];
 
 
 function currentLocation(city) {
     var APIKey = "e2343ed8866af33baef64fd64ab7247e";
 
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + "&appid=" + APIKey;
 
     fetch(queryURL)
     .then(function (response) {
@@ -39,8 +42,9 @@ function clickHandler(event) {
 
     if (city) {
         currentLocation(city);
-
-        // currentWeatherEl.textContent = '';
+        citiesArr.push(city)
+        localStorage.setItem('city', JSON.stringify(citiesArr));
+        cityHistory();
         searchRequestEl.value = '';
     } else {
         alert('Please enter a city');
@@ -48,9 +52,20 @@ function clickHandler(event) {
 
  }
 
+ cityHistory();
+
+function cityHistory() {
+    historyEl.innerHTML = "";
+for (var i = 0; i < citiesArr.length; i++) {
+    var button = document.createElement('button');
+    button.textContent = citiesArr[i];
+    historyEl.append(button);
+    
+}
+}
+
  function displayWeather(weather) {
 
-    // debugger;
     cityEl.textContent = weather.name;
     dateEl.textContent = moment().format("MM-DD-YY");
     tempData = weather.main.temp
@@ -61,7 +76,7 @@ function clickHandler(event) {
     var getLat = weather.coord.lat;
     var getLon = weather.coord.lon;
 
-    var uvURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + getLat + "&lon=" + getLon + "&exclude=hourly&exclude=minutely&appid=e2343ed8866af33baef64fd64ab7247e";
+    var uvURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + getLat + "&lon=" + getLon + "&units=imperial" + "&exclude=hourly&exclude=minutely&appid=e2343ed8866af33baef64fd64ab7247e";
     console.log(uvURL);
         fetch(uvURL)
         .then(function (response) {
@@ -84,16 +99,31 @@ function clickHandler(event) {
 
 function fiveDayForecast(daily) {
     
+for (var i = 1; i <= 5; i++) {
+    var cardEl= document.createElement('div');
+    cardEl.setAttribute("class", "card bg-primary text-white")
+    var cardBodyEl= document.createElement('div');
+    cardBodyEl.setAttribute("class", "card-body");
+    var dailyWeatherIconEl = document.createElement('img');
+    dailyWeatherIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + daily.daily[i].weather[0].icon + ".png");
+    cardBodyEl.append(dailyWeatherIconEl);
+    var cardTempEl = document.createElement('div');
+    cardTempEl.setAttribute("class", "card-text");
+    cardTempEl.textContent = "Temp: " + daily.daily[i].temp.day + "°F";
+    cardBodyEl.append(cardTempEl);
+    var cardHumidityEl = document.createElement('div');
+    cardHumidityEl.setAttribute("class", "card-text");
+    cardHumidityEl.textContent = "Humidity: " + daily.daily[i].humidity + "%";
+    cardBodyEl.append(cardHumidityEl);
+    cardEl.append(cardBodyEl);
+    
+fiveDayForecastEl.append(cardEl);
+}
+
 }
 
 
  }
 
 searchButtonEl.addEventListener('click', clickHandler);
-
-
-// searchButtonEl.addEventListener("submit", formSubmitHandler);
-// console.log(currentLocation("London"));
-
-
 
