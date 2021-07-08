@@ -1,3 +1,15 @@
 #searchButton {
     margin-top: 8px;
 }
+
+.favorable {
+    color: green;
+}
+
+.moderate {
+    color: yellow;
+}
+
+.severe {
+    color: red;
+}
