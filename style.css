@@ -20,3 +20,10 @@
     width: 210px;
     display: inline-block;
 }
+
+button {
+  border: solid 2px black;
+  display: list-item;
+  margin: 3px;
+  border-radius: 4px;
+}

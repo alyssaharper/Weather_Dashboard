@@ -61,8 +61,16 @@ for (var i = 0; i < citiesArr.length; i++) {
     var button = document.createElement('button');
     button.textContent = citiesArr[i];
     historyEl.append(button);
+    console.log("first")
+    console.log(citiesArr[i]);
+
     button.addEventListener('click', function() {
-        currentLocation(citiesArr);
+        // fiveDayForecastEl = '';
+
+        while(fiveDayForecastEl.firstChild){
+            fiveDayForecastEl.removeChild(fiveDayForecastEl.firstChild);
+        }
+        currentLocation($(this).text())
     })
 }
 }
@@ -129,6 +137,9 @@ for (var i = 1; i <= 5; i++) {
     cardBodyEl.append(cardHumidityEl);
     cardEl.append(cardBodyEl);
     
+    // fiveDayForecastEl = '';
+
+
 fiveDayForecastEl.append(cardEl);
 }
 
