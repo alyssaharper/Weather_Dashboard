@@ -111,6 +111,9 @@ for (var i = 1; i <= 5; i++) {
     cardTempEl.setAttribute("class", "card-text");
     cardTempEl.textContent = "Temp: " + daily.daily[i].temp.day + "°F";
     cardBodyEl.append(cardTempEl);
+    var cardWindEl = document.createElement('div');
+    cardWindEl.textContent = "Wind: " + daily.daily[i].wind_speed + " MPH";
+    cardBodyEl.append(cardWindEl);
     var cardHumidityEl = document.createElement('div');
     cardHumidityEl.setAttribute("class", "card-text");
     cardHumidityEl.textContent = "Humidity: " + daily.daily[i].humidity + "%";
@@ -126,4 +129,5 @@ fiveDayForecastEl.append(cardEl);
  }
 
 searchButtonEl.addEventListener('click', clickHandler);
+
 
