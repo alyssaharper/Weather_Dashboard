@@ -37,6 +37,9 @@ function clickHandler(event) {
     event.preventDefault();
 
     var city = searchRequestEl.value.trim();
+    while(fiveDayForecastEl.firstChild){
+        fiveDayForecastEl.removeChild(fiveDayForecastEl.firstChild);
+    }
 
     // console.log("city")
     // console.log(city)
@@ -67,9 +70,9 @@ for (var i = 0; i < citiesArr.length; i++) {
     button.addEventListener('click', function() {
         // fiveDayForecastEl = '';
 
-        while(fiveDayForecastEl.firstChild){
-            fiveDayForecastEl.removeChild(fiveDayForecastEl.firstChild);
-        }
+            while(fiveDayForecastEl.firstChild){
+        fiveDayForecastEl.removeChild(fiveDayForecastEl.firstChild);
+    }
         currentLocation($(this).text())
     })
 }
