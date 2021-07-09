@@ -1,3 +1,4 @@
+// DOM elements
 var searchButtonEl = document.querySelector('#searchButton');
 var searchRequestEl = document.querySelector('#search');
 var currentWeatherEl = document.querySelector('#currentWeather');
@@ -12,7 +13,7 @@ var historyEl = document.getElementById('history');
 var fiveDayForecastEl = document.getElementById('5DayForecast');
 var citiesArr = JSON.parse(localStorage.getItem('city')) || [];
 
-
+// fetches weather API to get city name
 function currentLocation(city) {
     var APIKey = "e2343ed8866af33baef64fd64ab7247e";
 
@@ -30,7 +31,7 @@ function currentLocation(city) {
     });
 
 };
-
+// on click of search, gets my city and stores it to local storage
 function clickHandler(event) {
     // console.log('Button Clicked');
     event.preventDefault();
@@ -53,17 +54,19 @@ function clickHandler(event) {
  }
 
  cityHistory();
-
+// adds buttons with previous cities and pulls them from local storage.
 function cityHistory() {
     historyEl.innerHTML = "";
 for (var i = 0; i < citiesArr.length; i++) {
     var button = document.createElement('button');
     button.textContent = citiesArr[i];
     historyEl.append(button);
-    
+    button.addEventListener('click', function() {
+        currentLocation(citiesArr);
+    })
 }
 }
-
+// puts all elements in my main container of daily weather and then calls another API to get the UV index.
  function displayWeather(weather) {
 
     cityEl.textContent = weather.name;
@@ -97,6 +100,7 @@ for (var i = 0; i < citiesArr.length; i++) {
             }
         });
 
+//creates each of the cards to the 5 day forecasts and appends them to my HTML
 function fiveDayForecast(daily) {
     
 for (var i = 1; i <= 5; i++) {
@@ -104,6 +108,11 @@ for (var i = 1; i <= 5; i++) {
     cardEl.setAttribute("class", "card bg-primary text-white")
     var cardBodyEl= document.createElement('div');
     cardBodyEl.setAttribute("class", "card-body");
+    var forecastDateEl=document.createElement('div');
+    var unix = daily.daily[i].dt;
+    var convertDate = new Date(unix*1000);
+    forecastDateEl.textContent = convertDate.toLocaleDateString("en-US");
+    cardBodyEl.append(forecastDateEl);
     var dailyWeatherIconEl = document.createElement('img');
     dailyWeatherIconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + daily.daily[i].weather[0].icon + ".png");
     cardBodyEl.append(dailyWeatherIconEl);
@@ -127,7 +136,8 @@ fiveDayForecastEl.append(cardEl);
 
 
  }
-
+//click function for submit
 searchButtonEl.addEventListener('click', clickHandler);
+
 
 

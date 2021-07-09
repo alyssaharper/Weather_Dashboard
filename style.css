@@ -13,3 +13,10 @@
 .severe {
     color: red;
 }
+
+.card {
+    margin: 6px;
+    height: 240px;
+    width: 210px;
+    display: inline-block;
+}
